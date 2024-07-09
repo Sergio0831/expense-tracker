@@ -1,9 +1,9 @@
 'use client';
 
 import Image from 'next/image';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Button } from '../components/ui/Button';
+import { Button } from '@/components/ui/Button';
+import AuthLink from '@/components/ui/auth/AuthLink';
 
 const HomePage = () => {
   const router = useRouter();
@@ -25,24 +25,18 @@ const HomePage = () => {
           spend smarter <br /> save more
         </h1>
         <Button
-          onClick={() => router.push('sign-in')}
+          onClick={() => {
+            router.push('/signup');
+            console.log('hello');
+          }}
           type="button"
           variant={'gradient'}
           size={'large'}
           aria-label="Sign In"
-          className="mx-auto mt-7 mb-5">
+          className="mx-auto mt-7 mb-5 max-w-[22.5rem] w-full">
           Get Started
         </Button>
-        <div className="flex gap-2 justify-center text-medium-grey">
-          <p>Already have account?</p>
-          <Link
-            href="login"
-            aria-label="Log In"
-            className="link-outline text-dark-teal
-hover:text-light-teal">
-            Log In
-          </Link>
-        </div>
+        <AuthLink text="Already have an account?" linkHref="/signin" linkLabel="Sign in here" />
       </div>
     </main>
   );

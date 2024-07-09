@@ -8,23 +8,24 @@ import Card from '@/components/Card';
 import { Button } from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
 import { Form, FormField, FormGroup, FormItem, FormLabel, FormMessage } from '@/components/ui/Form';
-import { LoginSchema, LoginSchemaType } from '@/schemas';
-import { login } from '@/actions/login';
+import { SignupSchema, SignupSchemaType } from '@/schemas';
+import { signup } from '@/actions/signup';
 
-const LoginForm = () => {
+const SignupForm = () => {
   const [isPending, setTransition] = useTransition();
 
-  const form = useForm<LoginSchemaType>({
-    resolver: zodResolver(LoginSchema),
+  const form = useForm<SignupSchemaType>({
+    resolver: zodResolver(SignupSchema),
     defaultValues: {
+      name: '',
       email: '',
       password: '',
     },
   });
 
-  const onSubmit = (values: LoginSchemaType) => {
+  const onSubmit = (values: SignupSchemaType) => {
     setTransition(() => {
-      login(values);
+      signup(values);
       form.reset();
     });
   };
@@ -32,11 +33,35 @@ const LoginForm = () => {
   return (
     <Card
       className="mx-auto -mt-10 relative"
-      linkLabel="Create an account"
-      linkHref="/signup"
+      linkLabel="Sign in here"
+      linkText="Already have an account?"
+      linkHref="/signin"
       showSocial>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
+          <FormField
+            control={form.control}
+            name="name"
+            render={({ field }) => (
+              <FormItem>
+                <FormGroup>
+                  <FormLabel formItemId={field.name} error={form.formState.errors.name}>
+                    Name
+                  </FormLabel>
+                  <FormMessage formMessageId={field.name} error={form.formState.errors.name} />
+                </FormGroup>
+                <Input
+                  disabled={isPending}
+                  aria-label={field.name}
+                  placeholder="John Doe"
+                  type="text"
+                  id={field.name}
+                  error={form.formState.errors.name}
+                  {...field}
+                />
+              </FormItem>
+            )}
+          />
           <FormField
             control={form.control}
             name="email"
@@ -90,7 +115,7 @@ const LoginForm = () => {
             size="medium"
             type="submit"
             aria-label="Submit Form">
-            Login
+            Signup
           </Button>
         </form>
       </Form>
@@ -98,4 +123,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default SignupForm;

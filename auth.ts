@@ -3,7 +3,7 @@ import { PrismaAdapter } from '@auth/prisma-adapter';
 import Credentials from 'next-auth/providers/credentials';
 import prisma from '@/lib/db';
 import { verifyPassword } from '@/lib/password';
-import { LoginSchemaType } from 'schemas';
+import { LoginSchema, LoginSchemaType } from 'schemas';
 
 export const { signIn, signOut, auth, handlers } = NextAuth({
   adapter: PrismaAdapter(prisma),
@@ -15,6 +15,8 @@ export const { signIn, signOut, auth, handlers } = NextAuth({
       },
       authorize: async (credentials: LoginSchemaType) => {
         let user = null;
+
+        const { email, password } = await LoginSchema.parseAsync(credentials);
 
         user = await prisma.user.findUnique({
           where: { email: credentials.email as string },

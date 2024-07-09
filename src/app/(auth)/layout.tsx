@@ -11,7 +11,9 @@ const AuthLayout = ({ children }: AuthLayoutProps) => {
       <header className="curved-header flex-center bg-header">
         <AuthHeaderTitle />
       </header>
-      <main>{children}</main>
+      <main>
+        <div className="container">{children}</div>
+      </main>
     </>
   );
 };
