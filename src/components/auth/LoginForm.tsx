@@ -4,12 +4,14 @@ import { useTransition } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 
-import Card from '@/components/Card';
+import Card from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
 import { Form, FormField, FormGroup, FormItem, FormLabel, FormMessage } from '@/components/ui/Form';
 import { LoginSchema, LoginSchemaType } from '@/schemas';
 import { login } from '@/actions/login';
+import Social from '@/components/Social';
+import AuthLink from './AuthLink';
 
 const LoginForm = () => {
   const [isPending, setTransition] = useTransition();
@@ -24,17 +26,17 @@ const LoginForm = () => {
 
   const onSubmit = (values: LoginSchemaType) => {
     setTransition(() => {
-      login(values);
-      form.reset();
+      login(values).then((data) => {
+        form.setError('email', { message: data?.error });
+        if (!data?.error) {
+          form.reset();
+        }
+      });
     });
   };
 
   return (
-    <Card
-      className="mx-auto -mt-10 relative"
-      linkLabel="Create an account"
-      linkHref="/signup"
-      showSocial>
+    <Card className="mx-auto -mt-10 relative">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <FormField
@@ -94,6 +96,13 @@ const LoginForm = () => {
           </Button>
         </form>
       </Form>
+      <Social />
+      <AuthLink
+        linkHref="/signup"
+        linkLabel="Create an account"
+        ariaLabel="Create an account"
+        className="mt-8"
+      />
     </Card>
   );
 };

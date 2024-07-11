@@ -1,4 +1,4 @@
-import AuthHeaderTitle from '@/components/ui/auth/AuthHeaderTitle';
+import AuthHeaderTitle from '@/components/auth/AuthHeaderTitle';
 
 type AuthLayoutProps = {
   children: React.ReactNode;

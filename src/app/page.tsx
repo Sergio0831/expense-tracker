@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/Button';
-import AuthLink from '@/components/ui/auth/AuthLink';
+import AuthLink from '@/components/auth/AuthLink';
 
 const HomePage = () => {
   const router = useRouter();
@@ -14,11 +14,11 @@ const HomePage = () => {
       <Image
         src="/illustration.png"
         alt="Illustration"
-        width={400}
-        height={700}
+        width={300}
+        height={500}
         priority={true}
         loading="eager"
-        className="absolute inset-0 top-[10vh] mx-auto"
+        className="absolute inset-0 top-[10vh] mx-auto w-auto"
       />
       <div className="container py-10">
         <h1 className="heading-1 text-medium-teal text-center">

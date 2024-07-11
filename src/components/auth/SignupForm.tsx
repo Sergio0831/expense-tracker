@@ -4,12 +4,14 @@ import { useTransition } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 
-import Card from '@/components/Card';
+import Card from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
 import { Form, FormField, FormGroup, FormItem, FormLabel, FormMessage } from '@/components/ui/Form';
 import { SignupSchema, SignupSchemaType } from '@/schemas';
 import { signup } from '@/actions/signup';
+import Social from '@/components/Social';
+import AuthLink from '@/components/auth/AuthLink';
 
 const SignupForm = () => {
   const [isPending, setTransition] = useTransition();
@@ -25,18 +27,18 @@ const SignupForm = () => {
 
   const onSubmit = (values: SignupSchemaType) => {
     setTransition(() => {
-      signup(values);
-      form.reset();
+      signup(values).then((data) => {
+        form.setError('email', { message: data.error });
+
+        if (!data.error) {
+          form.reset();
+        }
+      });
     });
   };
 
   return (
-    <Card
-      className="mx-auto -mt-10 relative"
-      linkLabel="Sign in here"
-      linkText="Already have an account?"
-      linkHref="/signin"
-      showSocial>
+    <Card className="mx-auto -mt-10 relative">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <FormField
@@ -119,6 +121,14 @@ const SignupForm = () => {
           </Button>
         </form>
       </Form>
+      <Social />
+      <AuthLink
+        text="Already have an account?"
+        linkLabel="Sign in here"
+        linkHref="/signin"
+        ariaLabel="Sign in here"
+        className="mt-8"
+      />
     </Card>
   );
 };
