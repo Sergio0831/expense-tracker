@@ -14,12 +14,12 @@ interface AuthLinkProps {
 const AuthLink = ({ text, linkLabel, linkHref, className, ariaLabel }: AuthLinkProps) => {
   return (
     <div className={cn('flex gap-2 justify-center', className)}>
-      {text && <p>{text}</p>}
+      {text && <p className="sm:text-base text-sm">{text}</p>}
       <Link
         href={linkHref}
         aria-label={ariaLabel}
         className="text-dark-teal
-hover:text-light-teal link-outline font-medium">
+hover:text-light-teal link-outline font-medium sm:text-base text-sm">
         {linkLabel}
       </Link>
     </div>

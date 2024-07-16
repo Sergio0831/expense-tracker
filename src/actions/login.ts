@@ -1,7 +1,6 @@
 'use server';
 
 import { signIn } from '@/auth';
-import { verifyPassword } from '@/lib/password';
 import { DEFAULT_LOGIN_REDIRECT } from '@/lib/routes';
 import { getUserByEmail } from '@/lib/utils';
 import { LoginSchema, LoginSchemaType } from '@/schemas';
@@ -21,7 +20,7 @@ export const login = async (values: LoginSchemaType) => {
   try {
     const existingUser = await getUserByEmail(email);
     if (!existingUser?.email) {
-      return { error: "You havent't register yet" };
+      return { error: "You havent't register yet!" };
     }
 
     await signIn('credentials', {

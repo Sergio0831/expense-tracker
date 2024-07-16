@@ -10,7 +10,7 @@ export const publicRoutes: string[] = ['/'];
  * These routes will redirect logged in user to /overview page
  * @type {string[]}
  */
-export const authRoutes: string[] = ['/signin', '/signup'];
+export const authRoutes: string[] = ['/signin', '/signup', '/reset', '/new-password'];
 
 /**
  * The prefix for API authentication routes

@@ -5,7 +5,7 @@ const OverviewPage = async () => {
 
   return (
     <div>
-      <h1 className="heading-1">{JSON.stringify(session)}</h1>
+      <h5 className="">{JSON.stringify(session?.user)}</h5>
       <form
         action={async () => {
           'use server';

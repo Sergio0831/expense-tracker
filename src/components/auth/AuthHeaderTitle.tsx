@@ -14,6 +14,14 @@ const AuthHeaderTitle = () => {
     title = 'Create an account';
   }
 
+  if (pathName === '/reset') {
+    title = 'Forgot your password?';
+  }
+
+  if (pathName === '/new-password') {
+    title = 'Create new password';
+  }
+
   return <h1 className="heading-2 text-white z-10">{title}</h1>;
 };
 

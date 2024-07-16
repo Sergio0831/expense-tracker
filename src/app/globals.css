@@ -70,7 +70,7 @@
   }
 
   .heading-2 {
-    @apply text-3xl font-semibold;
+    @apply text-2xl sm:text-3xl font-semibold;
   }
 
   .link-outline {
